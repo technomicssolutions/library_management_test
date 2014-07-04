@@ -1,0 +1,14 @@
+{% if latest_bookcategory_list %}
+    <table>
+    {% for book in latest_bookcategory_list %}
+        <tr>
+        	<td>{{book.book_category}}</td>
+            <td><a href="{% url 'deletebookcategory' book.id %}">Delete</a></td>
+            <td><a href="">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    <a href="{% url 'add_bookcategory' %}">ADD a New Book category</a>	
+{% else %}	
+    <p>No books are available.</p>
+{% endif %}

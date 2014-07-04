@@ -22,14 +22,15 @@ class Student(models.Model):
 
 
 class BookCategory(models.Model):
-	#student = models.ForeignKey(Student, null=True, blank=True)
-	book_category = models.CharField('Categories', null=True, max_length=200, )
+	
+	book_category = models.CharField('Categories', null=True, max_length=200)
+	
 
 	class Meta:
 		verbose_name_plural = "Book Categories"
 
 	def __unicode__(self):
-		return self.category
+		return self.book_category
 
 
 
@@ -37,9 +38,9 @@ class Book(models.Model):
 	book_id = models.CharField('Book Id', max_length=100, null=True)
 	book_name = models.CharField('Book Name', max_length=200, null=True)
 	book_category = models.ForeignKey(BookCategory, null=True, blank=True)
-	date_of_issue = models.DateTimeField('date issued')
-	date_of_return = models.DateTimeField('return date')
-
+	date_of_issue = models.DateTimeField('date issued', null=True, blank=True)
+	date_of_return = models.DateTimeField('return date',null=True, blank=True)
+	#student = models.ForeignKey(Student, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.book_name

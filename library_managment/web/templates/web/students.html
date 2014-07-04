@@ -1,0 +1,21 @@
+{% if latest_student_list %}
+    <table>
+    {% for student in latest_student_list %}
+        <tr>
+        	<td>{{student.student_id}}<td>
+        	<td>{{student.name}}</td>
+        	<td>{{student.age}}</td>
+        	<td>{{student.gender}}</td>
+        	<td>{{student.address}}</td>
+        	<td>{{student.book_student_has}}</td>
+            <td><a href="{% url 'deletestudent' student.id %}">Delete</a></td>
+            <td><a href="{% url 'edit_student' student.id %}">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    
+	
+    <a href="{% url 'add_students' %}">ADD A New Student</a>   
+{% else %}
+    <p>No students are available.</p>
+{% endif %}
