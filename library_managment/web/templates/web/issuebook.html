@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+	<form method="POST" action="{% url 'issuebook' %}">{% csrf_token %}
+		<select name="student_id">
+			{% for student in students %}
+				<option  value="{{student.id}}">{{student.name}}</option>
+			{% endfor %}		
+		</select>
+		<select name="book_id">
+			{% for book in books %}
+				<option  value="{{book.id}}">{{book.book_name}}</option>
+			{% endfor %}
+		<input type='submit' value='Submit'/>
+	</form>
+{% endblock content %}

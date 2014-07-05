@@ -40,8 +40,14 @@ class Book(models.Model):
 	book_category = models.ForeignKey(BookCategory, null=True, blank=True)
 	date_of_issue = models.DateTimeField('date issued', null=True, blank=True)
 	date_of_return = models.DateTimeField('return date',null=True, blank=True)
-	#student = models.ForeignKey(Student, null=True, blank=True)
+	student = models.ForeignKey(Student, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.book_name
 
+class Issue(models.Model):
+	book = models.ForeignKey(Book,null=True, blank=True)
+	student = models.ForeignKey(Student,null=True, blank=True)
+	date_of_issue = models.DateTimeField('date issued', null=True, blank=True)
+	date_of_return = models.DateTimeField('return date',null=True, blank=True)
+	
