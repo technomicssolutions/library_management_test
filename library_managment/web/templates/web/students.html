@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'web/style.css'%}"/>
+<div class="alert alert-info" align="Center"><h4>Students</h4></div>
     {% if latest_student_list %}
-        <table>
+        <table >
+            <tr>
+                <th>Student Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>No of books</th>
+                <th>Fine</th>
+            </tr>
         {% for student in latest_student_list %}
             <tr>
-            	<td>{{student.student_id}}<td>
+            	<td>{{student.student_id}}</td>
             	<td>{{student.name}}</td>
             	<td>{{student.age}}</td>
             	<td>{{student.gender}}</td>
             	<td>{{student.address}}</td>
-            	<td>{{student.book_student_has}}</td>
+                <td>{{student.books_student_has}}</td>
+                <td>{{student.fine}}</td>
                 <td><a href="{% url 'deletestudent' student.id %}">Delete</a></td>
                 <td><a href="{% url 'edit_student' student.id %}">Edit</a></td>
             </tr>

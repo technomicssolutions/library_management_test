@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="alert alert-info" align="Center"><h4>ISSUE BOOK</h4></div>
+
 	<form method="POST" action="{% url 'issuebook' %}">{% csrf_token %}
 		<select name="student_id">
 			{% for student in students %}

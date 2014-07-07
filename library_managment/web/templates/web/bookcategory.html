@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'web/style.css'%}"/>
+<div class="alert alert-info" align="Center"><h4>BOOK CATEGORY</h4></div>
+
     {% if latest_bookcategory_list %}
         <table>
+            <tr>
+                <th>Category</th>
+            </tr>
         {% for book in latest_bookcategory_list %}
             <tr>
             	<td>{{book.book_category}}</td>

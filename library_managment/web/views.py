@@ -76,7 +76,13 @@ class BookView(generic.ListView):
 		book = Book.objects.order_by('book_name')
 		return book
 
-
+class IssueView(generic.ListView):
+	template_name = 'web/show_issue.html'
+	context_object_name = 'latest_issue_list'
+	
+	def get_queryset(self):
+		issue = Issue.objects.order_by('date_of_issue')
+		return issue
 
 class DeleteStudent(View):
 	
@@ -170,11 +176,12 @@ class EditBookCategory(View):
 			#print "form ==", form
 			form.save()
 			return render(request, 'web/home.html',{'form':form,'book_category':book_category })
+
 class IssueBook(View):
 	
 	def get(self,request,*args,**kwargs):
 		students = Student.objects.all()
-		books = Book.objects.all()
+		books = Book.objects.filter(is_available=True)
 		if request.method == "GET":
 			formstudent = StudentForm()
 			formbook = BookForm()
@@ -187,18 +194,43 @@ class IssueBook(View):
 			return render(request,'web/issuebook.html',context)
 	
 	def post(self,request,*args,**kwargs):
-		print request.POST, 'hiiiii'
+		#print request.POST, 'hiiiii'
 		if request.method == "POST":
-			name =  request.POST['student_id']
-			#Student.objects.create(name=name)
-			book = request.POST['book_id']	
-			#Book.objects.create(book_name=book_name)
-			form = IssueForm(request.POST)
-			date_of_issue = datetime.now()
-			date_of_return = datetime.now() + dt.timedelta(days=7)
-			issue = Issue.objects.create(date_of_issue=date_of_issue, date_of_return=date_of_return)
-			context ={
-			   "form":form,
-		       	
-			}
-			return render(request,'web/issuebook.html',context)
+			student_id  =  request.POST['student_id']
+			student = Student.objects.get(id=student_id)
+			if student.books_student_has <3:
+				book_id = request.POST['book_id']	
+				book = Book.objects.get(id=book_id)
+				if book.is_available == True:
+					book.is_available = False
+					date_of_issue = datetime.now()
+					date_of_return = datetime.now() + dt.timedelta(days=7)
+					return_flag = False
+					issue = Issue.objects.create(date_of_issue=date_of_issue, date_of_return=date_of_return, book=book, student=student, return_flag=return_flag)
+					student.books_student_has = student.books_student_has + 1
+					student.save()
+					book.save()
+					return HttpResponseRedirect(reverse('show_issue'))
+			else :
+				return render(request,'web/error.html',{})
+
+class ReturnView(View):
+	
+	def get(self,request,*args,**kwargs):
+		issue_id = kwargs['issue_id']
+		issue = Issue.objects.get(id=issue_id)
+		student_id = kwargs['student_id']
+		student = Student.objects.get(id=student_id)
+		book_id = kwargs['book_id']
+		book = Book.objects.get(id=book_id)
+		now = timezone.now()
+		if now > issue.date_of_return:
+			student.fine = student.fine + 5
+		if student.books_student_has >0:
+			book.is_available = True
+			student.books_student_has = student.books_student_has - 1
+			issue.return_flag = True
+			issue.save()
+			student.save()
+			book.save()
+			return HttpResponseRedirect(reverse('show_issue'))

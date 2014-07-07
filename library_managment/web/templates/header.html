@@ -1,9 +1,47 @@
 
-<center>
+<!-- <center>
 	<nav>	
 		<a href="{% url 'students' %}">Students|</a>
 		<a href="{% url 'books' %}">Books|</a>
 		<a href="{% url 'bookcategories' %}">BookCategories|</a>
 		<a href="{% url 'issuebook' %}">Issue|</a>
+		<a href="{% url 'show_issue' %}">Return book|</a>
+
 	</nav> 
+</center> -->
+<center>
+	<nav>
+		<div class="menu_header">
+			<div class="menu_div">
+				<ul id="menu">
+					<li class="pull-left"> <a href=""> Students </a> 
+						<ul>
+							<li><a href="{% url 'students' %}">View</a></li>
+							<li><a href="{% url 'add_students' %}">Create </a></li>
+							<li><a href="{% url 'students' %}">Edit</a></li>
+							<li><a href="{% url 'students' %}">Delete</a></li>
+
+						</ul>
+					</li>
+					<li class="pull-left"> <a href=""> Books </a> 
+						<ul>
+							<li><a href="{% url 'books' %}">View</a></li>
+							<li><a href="{% url 'add_book' %}">Create </a></li>
+							<li><a href="{% url 'books' %}">Edit</a></li>
+							<li><a href="{% url 'books' %}">Delete</a></li>
+							</ul>
+					<li class="pull-left"> <a href=""> Book Category </a> 
+						<ul>
+							<li><a href="{% url 'bookcategories' %}">View</a></li>
+							<li><a href="{% url 'add_bookcategory' %}">Create </a></li>
+							<li><a href="{% url 'bookcategories' %}">Edit</a></li>
+							<li><a href="{% url 'bookcategories' %}">Delete</a></li>
+							</ul>
+					</li>
+					<li class="pull-left"><a href="{% url 'issuebook' %}">Issue|</a></li>
+					<li class="pull-left"><a href="{% url 'show_issue' %}">Return book|</a></li>
+				</ul>
+			</div>
+		</div>
+	<nav>
 </center>

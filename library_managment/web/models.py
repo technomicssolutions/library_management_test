@@ -15,7 +15,7 @@ class Student(models.Model):
 	gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
 	address = models.CharField('Address', max_length=200)
 	books_student_has = models.IntegerField(default=0)
-	
+	fine = models.IntegerField(default=0)
 	def __unicode__(self):
 		return self.name
 
@@ -41,6 +41,7 @@ class Book(models.Model):
 	date_of_issue = models.DateTimeField('date issued', null=True, blank=True)
 	date_of_return = models.DateTimeField('return date',null=True, blank=True)
 	student = models.ForeignKey(Student, null=True, blank=True)
+	is_available = models.BooleanField('available',default=True)
 
 	def __unicode__(self):
 		return self.book_name
@@ -50,4 +51,6 @@ class Issue(models.Model):
 	student = models.ForeignKey(Student,null=True, blank=True)
 	date_of_issue = models.DateTimeField('date issued', null=True, blank=True)
 	date_of_return = models.DateTimeField('return date',null=True, blank=True)
-	
+	return_flag = models.BooleanField(default =True)
+	def __unicode__(self):
+		return self.book.book_name + ' - ' + self.student.name
