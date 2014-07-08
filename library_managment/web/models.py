@@ -9,7 +9,7 @@ GENDER_CHOICES = (
     	)
 
 class Student(models.Model):
-	student_id = models.CharField(max_length=200, null=True, blank=True)
+	student_id = models.CharField(max_length=200,unique=True)
 	name = models.CharField('Student Name', max_length=200)
 	age = models.IntegerField('Age')
 	gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
@@ -23,7 +23,7 @@ class Student(models.Model):
 
 class BookCategory(models.Model):
 	
-	book_category = models.CharField('Categories', null=True, max_length=200)
+	book_category = models.CharField('Categories', null=True, max_length=200,unique=True)
 	
 
 	class Meta:
@@ -35,7 +35,7 @@ class BookCategory(models.Model):
 
 
 class Book(models.Model):
-	book_id = models.CharField('Book Id', max_length=100, null=True)
+	book_id = models.CharField('Book Id', max_length=100, unique=True)
 	book_name = models.CharField('Book Name', max_length=200, null=True)
 	book_category = models.ForeignKey(BookCategory, null=True, blank=True)
 	date_of_issue = models.DateTimeField('date issued', null=True, blank=True)

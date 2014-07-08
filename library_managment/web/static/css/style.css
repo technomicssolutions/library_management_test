@@ -1,70 +1,20 @@
 
 table,th,td
 {
-padding:15px;
-border:1px solid black;
-border-collapse:collapse
+	padding:15px;
+	border:1px ;
+	border-collapse:collapse
+}
+/*.myTable { background-color:#FFFFE0;border-collapse:collapse; }
+.myTable th { background-color:#00000;color:white;width:50%; }
+.myTable td, .myTable th { padding:5px;border:1px solid #BDB76B; }
+*/
+tr:nth-child(even) {background: #FFF}
+tr:nth-child(odd) {background:#C0C0C0 }
+td{
+	border:none;
 }
 
-
-ul
-{
-    font-family: Arial, Verdana;
-    font-size: 14px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-ul li
-{
-    display: block;
-    position: relative;
-    float: left;
-}
-
-li ul
-{
-    display: none;
-}
-
-ul li a 
-{
-    display: block;
-    text-decoration: none;
-    color: #ffffff;
-    border-top: 1px solid #ffffff;
-    padding: 5px 15px 5px 15px;
-    background: #2C5463;
-    margin-left: 1px;
-    white-space: nowrap;
-}
-
-ul li a:hover 
-{
-    background: #617F8A;
-}
-li:hover ul 
-{
-    display: block;
-    position: absolute;
-}
-
-li:hover li
-{
-    float: none;
-    font-size: 11px;
-}
-
-li:hover a 
-{
-    background: #617F8A;
-}
-
-li:hover li a:hover 
-{
-    background: #95A9B1;
-}
 .content {
 	float: left;
 	width: 100%;
@@ -118,6 +68,10 @@ footer {
 textarea{
     height: 32px;
     padding-left: 3px;
+    width: 30%;
+    margin: auto;
+    float: left;
+	text-align: center;
 }
 
 
@@ -169,8 +123,8 @@ form {
     width: 42%;
 }
 .buttons .btn {
-	margin-left: 2%;
-/*	width: 20%; */
+	margin: auto;
+width: 20%;
 }
 .formrow {
 	min-height: 40px;
@@ -190,5 +144,89 @@ form {
 	width: 90%;
 }
 .container{
+	margin: auto;
+	
 	width: 100% !important;
+
+}
+.content{
+	width: 100%;
+	margin: auto;
+}
+
+.content label{
+	float: left;
+	width: 40%;
+	margin:auto;
+}
+.content p{
+	width: 30%;
+	margin: auto;
+}
+
+.login {
+	width: 30%;
+	margin: auto;
+}
+.add_student {
+	width: 30%;
+	margin:auto;
+}
+
+.add_student label{
+	width: 43%;
+	float: left;
+	display: block;
+}
+.add_student input{
+	width: 50%;
+	float: left;
+	display: block;
+}
+.add_student select{
+	width: 54%;
+	float: left;
+	display: block;
+}
+
+.errorlist{
+	width: 100%;
+	margin: auto;
+	display: block;
+	list-style: none;
+	float: right;
+}
+.errorlist li{
+	color: red;
+}
+#menu{
+	font-family: Arial, Verdana;
+	font-size:  14px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#menu li{
+ 	float: left;
+    height: 30px;
+    padding: 5px;
+    text-align: center;
+    width: 14%;
+}
+#menu li:hover .sub_menu{
+	display: block;
+}
+.sub_menu li  {
+	display: block;
+	width: 100% !important;
+	height: 30px;
+}
+.sub_menu {
+	display: none;
+
+}
+
+.menu_div {
+	float: right;
+	width: 60%;
 }

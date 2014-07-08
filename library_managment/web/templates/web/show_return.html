@@ -3,23 +3,25 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
     {% if latest_issue_list %}
-        <table style="width:300px">
-            <tr>
-                <th>Name</th>
-                <th>Book</th>
-                <th>Issue date</th>
-                <th>Return Date</th>
-            </tr>
-        {% for issue in latest_issue_list %}
-            <tr>
-            	<td>{{issue.student.name}}</td>
-            	<td>{{issue.book.book_name}}</td>
-            	<td>{{issue.date_of_issue}}</td>
-                <td>{{issue.date_of_return}}</td>
-                <td><a href="{% url 'return' issue_id=issue.id student_id=issue.student.id book_id=issue.book.id %}">Return</a></td>
-            </tr>
-        {% endfor %}
-        </table>
+        <center>
+            <table style="width:300px">
+                <tr style="background-color:#000000;color:white;">
+                    <th>Name</th>
+                    <th>Book</th>
+                    <th>Issue date</th>
+                    <th>Return Date</th>
+                </tr>
+            {% for issue in latest_issue_list %}
+                <tr>
+                	<td>{{issue.student.name}}</td>
+                	<td>{{issue.book.book_name}}</td>
+                	<td>{{issue.date_of_issue}}</td>
+                    <td>{{issue.date_of_return}}</td>
+                    <td><a href="{% url 'return' issue_id=issue.id student_id=issue.student.id book_id=issue.book.id %}">Return</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </center>
     {% else %}	
         <p>No issued bookss are available.</p>
     {% endif %}

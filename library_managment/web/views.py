@@ -10,6 +10,8 @@ from django.shortcuts import get_object_or_404, render,render_to_response
 from web.forms import StudentForm,BookForm,BookCategoryForm,IssueForm
 from django.views.generic.base import View
 from django.views import generic
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 
 def home(request):
@@ -84,6 +86,13 @@ class IssueView(generic.ListView):
 		issue = Issue.objects.order_by('date_of_issue')
 		return issue
 
+class ShowBookCategoryView(View):
+	
+	def get(self,request,*args,**kwargs):
+		bookcategory_id = kwargs['bookcategory_id']
+		bookcategory = BookCategory.objects.get(id=bookcategory_id)
+		return render(request, 'web/show_book_category.html', {'bookcategory':bookcategory, })
+
 class DeleteStudent(View):
 	
 	def get(self,request,*args,**kwargs):
@@ -125,11 +134,15 @@ class EditStudent(View):
 	def post(self,request,*args,**kwargs):
 		student_id = kwargs['student_id']
 		student = Student.objects.get(id=student_id)
-		if request.method == "POST" :
-			form = StudentForm(request.POST,instance=student)
-			#print "form ==", form
-			form.save()
-			return render(request, 'web/home.html',{'form':form,'student_id':student_id })
+		try:
+			if request.method == "POST" :
+				form = StudentForm(request.POST,instance=student)
+				#print "form ==", form
+				form.save()
+				# return render(request, 'web/students.html',{'form':form,'student_id':student_id })
+				return HttpResponseRedirect(reverse('students'))
+		except (KeyError, TypeError) as e:
+			print e
 
 class EditBook(View):
 	
@@ -148,11 +161,15 @@ class EditBook(View):
 	def post(self,request,*args,**kwargs):
 		book_id = kwargs['book_id']
 		book = Book.objects.get(id=book_id)
-		if request.method == "POST" :
-			form = BookForm(request.POST,instance=book)
-			#print "form ==", form
-			form.save()
-			return render(request, 'web/home.html',{'form':form,'book_id':book_id })
+		try:
+			if request.method == "POST" :
+				form = BookForm(request.POST,instance=book)
+				#print "form ==", form
+				form.save()
+				# return render(request, 'web/books.html',{'form':form,'book_id':book_id })
+				return HttpResponseRedirect(reverse('books'))
+		except (KeyError, TypeError) as e:
+			print e
 
 class EditBookCategory(View):
 	
@@ -171,11 +188,15 @@ class EditBookCategory(View):
 	def post(self,request,*args,**kwargs):
 		book_category = kwargs['book_category']
 		bookcategory = BookCategory.objects.get(id=book_category)
-		if request.method == "POST" :
-			form = BookCategoryForm(request.POST,instance=bookcategory)
-			#print "form ==", form
-			form.save()
-			return render(request, 'web/home.html',{'form':form,'book_category':book_category })
+		try:
+			if request.method == "POST" :
+				form = BookCategoryForm(request.POST,instance=bookcategory)
+				#print "form ==", form
+				form.save()
+				# return render(request, 'web/bookcategory.html',{'form':form,'book_category':book_category })
+				return HttpResponseRedirect(reverse('bookcategory'))
+		except (KeyError, TypeError) as e:
+			print e
 
 class IssueBook(View):
 	
@@ -234,3 +255,36 @@ class ReturnView(View):
 			student.save()
 			book.save()
 			return HttpResponseRedirect(reverse('show_issue'))
+
+class Login(View):
+
+    def get(self, request, *args, **kwargs):
+    	if request.user.is_authenticated():
+    		return HttpResponseRedirect(reverse('home'))
+        
+        return render(request, 'web/login.html',{})
+
+    def post(self, request, *args, **kwargs):
+
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        print user
+        if user and user.is_active:
+
+            login(request, user)
+        else:
+            context = {
+                'message' : 'Username or password is incorrect'
+            }
+            return render(request, 'web/login.html',context)
+        context = {
+            'Success_message': 'Welcome '+request.POST['username']
+        }
+
+        return render(request, 'web/home.html',context)
+
+class Logout(View):
+
+    def get(self, request, *args, **kwargs):
+
+        logout(request)
+        return HttpResponseRedirect(reverse('login'))

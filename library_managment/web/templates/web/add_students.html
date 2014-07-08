@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-	<form method="post" action="{% url 'add_students' %}">
+	<div class="add_student">
+		<form method="post" action="{% url 'add_students' %}">
 
-		{% csrf_token %}
-		{{ form.as_p}}
-		<input type='submit' value='Submit'/>
-	</form>
+			{% csrf_token %}
+			{% for field in form.visible_fields %}
+				<label> {{field.label}}</label>
+				{{field}}
+				{{field.errors}}
+			{% endfor %}
+			<p><input type='submit' value='Submit'/></p>
+		</form>
+	</div>
 {% endblock content %}

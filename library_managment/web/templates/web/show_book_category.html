@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'web/style.css'%}"/>
+<div class="alert alert-info" align="Center"><h4>{{bookcategory.book_category}}</h4></div>
+
+{% if bookcategory %}
+    <center>
+        <table>
+            <tr style="background-color:#000000;color:white;">
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+            {% for book in bookcategory.book_set.all %}
+                <tr>
+                    <td>{{book.book_id}}</td>
+                    <td>{{book.book_name}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </center>
+{% else %}  
+    <p>No books are available.</p>
+{% endif %}
+{% endblock content %}

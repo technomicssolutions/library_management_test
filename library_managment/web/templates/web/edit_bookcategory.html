@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-	<form method="post" action="{% url 'edit_bookcategory' book_category %}">{% csrf_token %}
-		{{ form.as_p}}
-		<input type='submit' value='Submit'/>
-	</form>
+	
+		<form method="post" action="{% url 'edit_bookcategory' book_category %}">{% csrf_token %}
+			{{ form.as_p}}
+			<input type='submit' value='Submit'/>
+		</form>
+
 {% endblock content %}

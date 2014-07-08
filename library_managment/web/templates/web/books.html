@@ -4,25 +4,34 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
 <div class="alert alert-info" align="Center"><h4> BOOKS </h4></div>
     {% if latest_book_list %}
-        <table >
-            <tr>
-                <th>Book Id</th>
-                <th>Name</th>
-                <th>Category</th>
-                <!-- <th>Status</th> -->
-            </tr>
-        {% for book in latest_book_list %}
-            <tr>
-            	<td>{{book.book_id}}</td>
-            	<td>{{book.book_name}}</td>
-            	<td>{{book.book_category}}</td>
-               <!--  <td>{{book.is_available}}</td> -->
-                <td><a href="{% url 'deletebook' book.id %}">Delete</a></td>
-                <td><a href="{% url 'edit_book' book.id %}">Edit</a></td>
-            </tr>
-        {% endfor %}
-        </table>
-        <a href="{% url 'add_book' %}">ADD a New Book</a>	
+        <center>
+            <table >
+                <tr style="background-color:#000000;color:white;">
+                    <th>Book Id</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th></th>
+                    <th></th>
+                    <!-- <th>Status</th> -->
+                </tr>
+            {% for book in latest_book_list %}
+                <tr>
+                	<td>{{book.book_id}}</td>
+                	<td>{{book.book_name}}</td>
+                	<td>{{book.book_category}}</td>
+                   <!--  <td>{{book.is_available}}</td> -->
+                    <td><a href="{% url 'deletebook' book.id %}">Delete</a></td>
+                    <td><a href="{% url 'edit_book' book.id %}">Edit</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </center>
+        <center>
+            <form method="post" action="{% url 'add_book'  %}">{% csrf_token %}
+                <input type='submit' value='Add a new book'/>
+            </form>
+        </center>
+        <!-- <a href="{% url 'add_book' %}">ADD a New Book</a>	 -->
     {% else %}	
         <p>No bookss are available.</p>
     {% endif %}

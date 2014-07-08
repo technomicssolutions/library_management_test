@@ -1,6 +1,8 @@
 from django.conf.urls import patterns,url
 from web import views
 urlpatterns = patterns('',
+	url(r'login/$', views.Login.as_view(), name='login'),
+    url(r'logout/$',views.Logout.as_view(), name='logout'),
 	url(r'^$', 'web.views.home', name='home'),
 	url(r'^deletestudent/(?P<student_id>\d+)/$', views.DeleteStudent.as_view(), name='deletestudent'),
 	url(r'^deletebook/(?P<book_id>\d+)/$', views.DeleteBook.as_view(), name='deletebook'),
@@ -16,5 +18,7 @@ urlpatterns = patterns('',
 	url(r'^add_book/$','web.views.add_books',name='add_book'),
 	url(r'^add_bookcategory/$','web.views.add_bookcategory',name='add_bookcategory'),
 	url(r'^issuebook/$', views.IssueBook.as_view(), name='issuebook'),
+	url(r'^show_book_category/(?P<bookcategory_id>\d+)/$', views.ShowBookCategoryView.as_view() ,name='show_book_category'),
 	url(r'^return/(?P<issue_id>\d+)/(?P<student_id>\d+)/(?P<book_id>\d+)/$', views.ReturnView.as_view(), name='return'),
+
 	)

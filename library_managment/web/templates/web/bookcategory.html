@@ -5,19 +5,28 @@
 <div class="alert alert-info" align="Center"><h4>BOOK CATEGORY</h4></div>
 
     {% if latest_bookcategory_list %}
-        <table>
-            <tr>
-                <th>Category</th>
-            </tr>
-        {% for book in latest_bookcategory_list %}
-            <tr>
-            	<td>{{book.book_category}}</td>
-                <td><a href="{% url 'deletebookcategory' book.id %}">Delete</a></td>
-                <td><a href="{% url 'edit_bookcategory' book.id %}">Edit</a></td>
-            </tr>
-        {% endfor %}
-        </table>
-        <a href="{% url 'add_bookcategory' %}">ADD a New Book category</a>	
+        <center>
+            <table>
+                <tr style="background-color:#000000;color:white;">
+                    <th >Category</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            {% for bookcategory in latest_bookcategory_list %}
+                <tr>
+                	<td><a href="{% url 'show_book_category' bookcategory.id %}">{{bookcategory.book_category}}</a></td>
+                    <td><a href="{% url 'deletebookcategory' bookcategory.id %}">Delete</a></td>
+                    <td><a href="{% url 'edit_bookcategory' bookcategory.id %}">Edit</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </center>
+        <center>
+            <form method="post" action="{% url 'add_bookcategory'  %}">{% csrf_token %}
+                <input type='submit' value='Add a new book category'/>
+            </form>
+        </center>
+        <!-- <a href="{% url 'add_bookcategory' %}">ADD a New Book category</a>	 -->
     {% else %}	
         <p>No books are available.</p>
     {% endif %}
